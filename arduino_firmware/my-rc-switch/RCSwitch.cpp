@@ -494,7 +494,7 @@ void RCSwitch::send(unsigned long remote, unsigned long button, boolean onoff){
     //Latch1
     this->transmit(1,36);
     //Latch2
-    this->transmit(1,10); // TODO: Latch 2 should be 2675�s which is not 10 * 275
+    this->transmit(1,10); // TODO: Latch 2 should be 2675�s which is not 10 * 275 id:0
     //digitalWrite(this->nTransmitterPin, HIGH);
 
     //Remote (Recipient Code)
@@ -623,7 +623,7 @@ void RCSwitch::send1() {
         this->transmit(9,6);
     }
     else if (this->nProtocol == 4) {
-        this->transmit(1,5); // TODO: Should be 1, 4.45
+        this->transmit(1,5); // TODO: Should be 1, 4.45 id:1
     }
 }
 
@@ -924,7 +924,7 @@ char* RCSwitch::dec2binWcharfill(unsigned long Dec, unsigned int bitLength, char
 
   for (unsigned int j = 0; j< bitLength; j++) {
     if (j >= bitLength - i) {
-      bin[j] = bin[ 31 + i - (j - (bitLength - i)) ]; // TODO: replace by 31+bitLenght-j
+      bin[j] = bin[ 31 + i - (j - (bitLength - i)) ]; // TODO: replace by 31+bitLenght-j id:2
     }else {
       bin[j] = fill;
     }
