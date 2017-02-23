@@ -26,6 +26,7 @@ void loop() {
 
     if (Serial.available() > 0) {
         str = Serial.readString();
+        Serial.println(str);
 
         if(str[0] == '#'){
             str.remove(0,1);
@@ -33,6 +34,7 @@ void loop() {
             pulseLength = getValue(str, ':', 0);
             pulseCode = getValue(str, ':', 1);
             codeRepeat = getValue(str, ':', 2);
+            codeRepeat.remove(codeRepeat.length()-2, 1);
 
             char pulseCodeArray[pulseCode.length()+1];
             pulseCode.toCharArray(pulseCodeArray, pulseCode.length()+1);
