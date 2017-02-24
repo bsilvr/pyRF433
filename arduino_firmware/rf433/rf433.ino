@@ -33,6 +33,8 @@ void loop() {
             pulseLength = getValue(str, ':', 0);
             pulseCode = getValue(str, ':', 1);
             codeRepeat = getValue(str, ':', 2);
+
+            pulseCode.remove(0,2);
             codeRepeat.remove(codeRepeat.length()-2, 2);
 
             char pulseCodeArray[pulseCode.length()+1];
@@ -68,3 +70,4 @@ String getValue(String data, char separator, int index)
     }
     return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
 }
+

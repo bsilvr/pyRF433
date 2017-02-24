@@ -6,6 +6,7 @@ import serial.tools.list_ports
 class Arduino433:
 
     def __init__(self, port=None, baudrate=9600):
+        self._transmit_data_format = "#<pulse_length>:<pulse_code>:<repeat>\0"
         self.available_devices = Arduino433.list_devices()
         self.baudrate = baudrate
         self.set_port(port)
@@ -24,7 +25,13 @@ class Arduino433:
         self.comm.close()
 
     def send(self, msg):
-        self.comm.write(bytes(msg, encoding="ascii"))
+        message = self._transmit_data_format.replace(
+                            "<pulse_length>", str(msg["pulse_length"])
+                            ).replace(
+                            "<pulse_code>", str(hex(int(msg["pulse_code"], 2)))
+                            ).replace(
+                            "<repeat>", str(msg["pulse_repeat"]))
+        self.comm.write(bytes(message, encoding="ascii"))
 
     def receive(self):
         # TODO: Read non blocking until separator is received. id:3

@@ -8,7 +8,7 @@ class HomeEasy(Protocol):
         super(self.__class__, self).__init__()
 
         self._pulse_length = 275
-        self._repeat = 5
+        self._pulse_repeat = 5
         self._pulse_0 = (1, 1)
         self._pulse_1 = (1, 5)
 

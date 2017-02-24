@@ -110,6 +110,7 @@ class RCSwitch {
     char* getCodeWordA(char* sGroup, char* sDevice, boolean bStatus);
     char* getCodeWordC(char sFamily, int nGroup, int nDevice, boolean bStatus);
     char* getCodeWordD(char group, int nDevice, boolean bStatus);
+    int RCSwitch::x2i(char c);
     void sendT0();
     void sendT1();
     void sendTF();

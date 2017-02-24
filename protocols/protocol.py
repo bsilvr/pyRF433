@@ -1,9 +1,8 @@
 
 class Protocol:
     def __init__(self):
-        self._transmit_data_format = "#<pulse_length>:<pulse_code>:<repeat>\0"
         self._pulse_length = 0
-        self._repeat = 1
+        self._pulse_repeat = 1
         self._pulse_0 = (0, 0)
         self._pulse_1 = (0, 0)
 
@@ -31,12 +30,10 @@ class Protocol:
                 "The pulse_length was not overwritten in the child class")
         if self._pulse_code is None:
             raise ValueError("The bit_code was not generated")
-        return self._transmit_data_format.replace(
-                                    "<pulse_length>", str(self._pulse_length)
-                                    ).replace(
-                                    "<pulse_code>", str(self._pulse_code)
-                                    ).replace(
-                                    "<repeat>", str(self._repeat))
+
+        return {"pulse_length": self._pulse_length,
+                "pulse_code": self._pulse_code,
+                "pulse_repeat": self._pulse_repeat}
 
     def _send_0(self):
         return "1"

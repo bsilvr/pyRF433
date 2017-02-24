@@ -455,16 +455,36 @@ void RCSwitch::sendTriState(char* sCodeWord) {
 void RCSwitch::sendRaw(char * pulse_code, int size) {
     for (int nRepeat=0; nRepeat<this->nRepeatTransmit; nRepeat++) {
         for (int i = 0; i < size; i++) {
-            if(pulse_code[i] == '1'){
-                digitalWrite(this->nTransmitterPin, HIGH);
-                delayMicroseconds(this->nPulseLength);
-            } else {
-                digitalWrite(this->nTransmitterPin, LOW);
-                delayMicroseconds(this->nPulseLength);
+            int dec = x2i(pulse_code[i]);
+            for(int j = 3; j >= 0; j--){
+                int bit = (dec & ( 1 << j )) >> j;
+                if(bit){
+                    digitalWrite(this->nTransmitterPin, HIGH);
+                    delayMicroseconds(this->nPulseLength);
+                } else {
+                    digitalWrite(this->nTransmitterPin, LOW);
+                    delayMicroseconds(this->nPulseLength);
+                }
             }
+
         }
         delay(10);
     }
+}
+
+// https://forum.arduino.cc/index.php?topic=123486.0
+int RCSwitch::x2i(char c)
+{
+    if (c >= '0' && c <= '9') {
+        return c - '0';
+    }
+    else if (c >= 'a' && c <= 'f') {
+        return (c - 'a') + 10;
+    }
+    else if (c >= 'A' && c <= 'F') {
+        return (c - 'A') + 10;
+    }
+    return 0;
 }
 
 void RCSwitch::send(unsigned long Code, unsigned int length) {
