@@ -33,10 +33,8 @@ class Arduino433:
                             "<pulse_code>", str(hex(int(msg["pulse_code"], 2)))
                             ).replace(
                             "<repeat>", str(msg["pulse_repeat"]))
-        print (message)
-        print (self.comm.write(bytes(message, encoding="ascii")))
+        self.comm.write(bytes(message, encoding="ascii"))
         self.comm.flush()
-        time.sleep(2)
 
     def receive(self):
         # TODO: Read non blocking until separator is received. id:3
