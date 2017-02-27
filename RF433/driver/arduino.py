@@ -1,4 +1,5 @@
 
+import time
 import serial
 import serial.tools.list_ports
 
@@ -20,6 +21,7 @@ class Arduino433:
     def open(self):
         self.close()
         self.comm.open()
+        time.sleep(5)
 
     def close(self):
         self.comm.close()
@@ -31,7 +33,10 @@ class Arduino433:
                             "<pulse_code>", str(hex(int(msg["pulse_code"], 2)))
                             ).replace(
                             "<repeat>", str(msg["pulse_repeat"]))
-        self.comm.write(bytes(message, encoding="ascii"))
+        print (message)
+        print (self.comm.write(bytes(message, encoding="ascii")))
+        self.comm.flush()
+        time.sleep(2)
 
     def receive(self):
         # TODO: Read non blocking until separator is received. id:3
